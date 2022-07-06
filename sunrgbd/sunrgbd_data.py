@@ -310,7 +310,7 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--viz', action='store_true', help='Run data visualization.')
     parser.add_argument('--compute_median_size', action='store_true', help='Compute median 3D bounding box sizes for each class.')
-    parser.add_argument('--gen_v1_data', default = True, action='store_true', help='Generate V1 dataset.')
+    parser.add_argument('--gen_v1_data', action='store_true', help='Generate V1 dataset.')
     parser.add_argument('--gen_v2_data', action='store_true', help='Generate V2 dataset.')
     args = parser.parse_args()
 

@@ -129,7 +129,7 @@ def make_args_parser():
 
     ##### Testing #####
     parser.add_argument("--test_only", default=True, action="store_true")
-    parser.add_argument("--test_ckpt", default=None, type=str)
+    parser.add_argument("--test_ckpt", default="/home/harshit/meta/3detr/sunrgbd_ep1080.pth", type=str)
 
     ##### I/O #####
     parser.add_argument("--checkpoint_dir", default=None, type=str)
@@ -432,3 +432,7 @@ if __name__ == "__main__":
     except RuntimeError:
         pass
     launch_distributed(args)
+
+'''
+python main_test.py --dataset_name sunrgbd --nqueries 128 --test_only --test_ckpt /home/harshit/meta/3detr/sunrgbd_ep1080.pth
+'''
