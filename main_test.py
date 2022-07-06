@@ -312,6 +312,11 @@ def test_model(args, model, model_no_ddp, criterion, dataset_config, dataloaders
     criterion = None  # do not compute loss for speed-up; Comment out to see test loss
     epoch = -1
     curr_iter = 0
+
+    #####################################
+    outputs = model(inputs)
+    #####################################
+    
     ap_calculator = evaluate(
         args,
         epoch,

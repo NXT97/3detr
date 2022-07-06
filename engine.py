@@ -168,6 +168,16 @@ def evaluate(
 
     for batch_idx, batch_data_label in enumerate(dataset_loader):
         curr_time = time.time()
+
+        import numpy as np
+        mins = batch_data_label["point_cloud_dims_min"]
+        print(np.shape(mins))
+        pc = batch_data_label["point_clouds"]
+        print(np.shape(pc))
+        batch_data_label["point_cloud_dims_min"] = batch_data_label["point_cloud_dims_min"][0]
+        batch_data_label["point_clouds"] = batch_data_label["point_clouds"][0]
+
+
         for key in batch_data_label:
             batch_data_label[key] = batch_data_label[key].to(net_device)
 
@@ -176,7 +186,16 @@ def evaluate(
             "point_cloud_dims_min": batch_data_label["point_cloud_dims_min"],
             "point_cloud_dims_max": batch_data_label["point_cloud_dims_max"],
         }
+        import numpy as np
+        mins = inputs["point_cloud_dims_min"].cpu().detach().numpy()
+        print(np.shape(mins))
+        pc = inputs["point_clouds"].cpu().detach().numpy()
+        print(np.shape(pc))
         outputs = model(inputs)
+        centers = outputs["outputs"]["center_normalized"].cpu().detach().numpy()
+        print(np.shape(centers))
+        corners = outputs["outputs"]["box_corners"].cpu().detach().numpy()
+        print(np.shape(corners))
 
         # Compute loss
         loss_str = ""

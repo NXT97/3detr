@@ -79,7 +79,7 @@ def make_args_parser():
     parser.add_argument(
         "--pos_embed", default="fourier", type=str, choices=["fourier", "sine"]
     )
-    parser.add_argument("--nqueries", default=256, type=int)
+    parser.add_argument("--nqueries", default=128, type=int)
     parser.add_argument("--use_color", default=False, action="store_true")
 
     ##### Set Loss #####
@@ -102,19 +102,19 @@ def make_args_parser():
 
     ##### Dataset #####
     parser.add_argument(
-        "--dataset_name", required=True, type=str, choices=["scannet", "sunrgbd"]
+        "--dataset_name", required=False, type=str, choices=["scannet", "sunrgbd"], default='sunrgbd'
     )
     parser.add_argument(
         "--dataset_root_dir",
         type=str,
-        default=None,
+        default="/home/harshit/meta/3detr/sunrgbd/sunrgbd_pc_bbox_votes_50k_v1",
         help="Root directory containing the dataset files. \
               If None, default values from scannet.py/sunrgbd.py are used",
     )
     parser.add_argument(
         "--meta_data_dir",
         type=str,
-        default=None,
+        default="",
         help="Root directory containing the metadata files. \
               If None, default values from scannet.py/sunrgbd.py are used",
     )
@@ -128,8 +128,8 @@ def make_args_parser():
     parser.add_argument("--seed", default=0, type=int)
 
     ##### Testing #####
-    parser.add_argument("--test_only", default=False, action="store_true")
-    parser.add_argument("--test_ckpt", default=None, type=str)
+    parser.add_argument("--test_only", default=True, action="store_true")
+    parser.add_argument("--test_ckpt", default="/home/harshit/meta/3detr/sunrgbd_ep1080.pth", type=str)
 
     ##### I/O #####
     parser.add_argument("--checkpoint_dir", default=None, type=str)
@@ -432,3 +432,7 @@ if __name__ == "__main__":
     except RuntimeError:
         pass
     launch_distributed(args)
+
+'''
+python main_test.py --dataset_name sunrgbd --nqueries 128 --test_only --test_ckpt /home/harshit/meta/3detr/sunrgbd_ep1080.pth
+'''
